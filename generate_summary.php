@@ -25,7 +25,7 @@ $board->sortActionsByMember();
 $board->summarize();
 
 ob_start();
-include "email_template.php";
+include "./templates/summary.php";
 $body = ob_get_clean();
 
 //echo "Sending email '{$board->data['name']}: {$board->summary}' to {$to}\n";
