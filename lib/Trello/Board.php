@@ -9,7 +9,9 @@ class Trello_Board extends Trello_Resource {
     public $associations = array(
         'lists'   => array('Trello_List', '/boards/{{board_id}}/lists'),
         'actions' => array('Trello_Action', '/boards/{{board_id}}/actions'),
-        'members' => array('Trello_Member', '/boards/{{board_id}}/members'),
+        'members' => array('Trello_Member', '/boards/{{board_id}}/members',
+            array('fields' => 'fullName,avatarHash'),
+        ),
     );
 
     public $member_actions = array();

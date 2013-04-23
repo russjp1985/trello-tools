@@ -26,10 +26,10 @@ abstract class Trello_Resource {
     }
 
     protected function loadAssociation($param) {
-        list($class, $uri) = $this->associations[$param];
+        list($class, $uri, $args) = $this->associations[$param];
         $trello = Trello::getInstance();
 
-        $data = $trello->get($this->format($uri, $this->args()));
+        $data = $trello->get($this->format($uri, $this->args()), $args);
         $this->_associations[$param] = array();
         foreach ($data as $item) {
             $model = new $class();
