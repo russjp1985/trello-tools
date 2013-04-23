@@ -5,25 +5,26 @@ class Trello {
     const API_VERSION = '1';
     const API_URL = 'https://api.trello.com/';
 
-    private $key;
-    private $token;
+    protected $key;
+    protected $token;
 
-    private static $instance;
+    protected static $instance;
 
     public static function getInstance() {
-        if (empty(self::$instance)) {
+        if (empty(static::$instance)) {
             throw new Exception("You must call Trello::connect first!");
         }
-        return self::$instance;
+        return static::$instance;
     }
 
     public static function connect($config=array()) {
-        self::$instance = self::create($config);
-        return self::getInstance();
+        static::$instance = static::create($config);
+        return static::getInstance();
     }
 
-    protected function create($config) {
-        return new Trello($config['key'], $config['token']);
+    protected static function create($config) {
+        $class = get_called_class();
+        return new $class($config['key'], $config['token']);
     }
 
     private function __construct($key, $token) {
