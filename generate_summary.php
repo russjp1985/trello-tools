@@ -4,7 +4,6 @@ require './lib/autoload.php';
 $opts = getopt('b:t:c:');
 $board_id = $opts['b'];
 $config_path = $opts['c'];
-$to = $opts['t'];
 $tz = $tops['z'];
 
 // Default the timezone to US
@@ -12,6 +11,16 @@ if (empty($tz)) {
     $tz = 'America/New_York';
 }
 date_default_timezone_set('America/New_York');
+
+if (empty($config_path) || !file_exists($config_path)) {
+    echo "You must provide a valid config path!\n";
+    exit(1);
+}
+
+if (empty($board_id)) {
+    echo "You must provide a board id\n";
+    exit(1);
+}
 
 $config = json_decode(file_get_contents($config_path), true);
 
