@@ -25,11 +25,14 @@ abstract class Trello_Resource {
         return $string;
     }
 
-    protected function loadAssociation($param) {
-        list($class, $uri, $args) = $this->associations[$param];
+    protected function loadAssociation($param, $args=array()) {
+        list($class, $uri, $default_args) = $this->associations[$param];
+        if (empty($default_args)) {
+            $default_args = array();
+        }
         $trello = Trello::getInstance();
 
-        $data = $trello->get($this->format($uri, $this->args()), $args);
+        $data = $trello->get($this->format($uri, $this->args()), array_merge($default_args, $args));
         $this->_associations[$param] = array();
         foreach ($data as $item) {
             $model = new $class();

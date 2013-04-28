@@ -25,7 +25,12 @@ class Trello_Board extends Trello_Resource {
         return array('board_id' => $this->board_id);
     }
 
-    public function sortActionsByMember() {
+    public function sortActionsByMember($start, $end) {
+        $this->opts = array(
+            'since' => $start,
+            'before' => $end,
+        );
+        $this->loadAssociation('actions', array('before' => $end, 'since' => $start, 'limit' => 250));
         foreach ($this->actions as $action) {
             $member = $action->memberCreator;
             $member_id = $member['id'];

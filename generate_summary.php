@@ -21,8 +21,8 @@ $start = time();
 Trello::connect($config['auth']);
 
 $board = new Trello_Board($board_id);
-$board->sortActionsByMember();
-$board->summarize();
+$board->sortActionsByMember($start, $end);
+$board->summarize($start, $end);
 
 ob_start();
 include "./templates/summary.php";
